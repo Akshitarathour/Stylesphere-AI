@@ -22,7 +22,7 @@ from agents.preference_agent import PersonalPreferenceAgent
 from agents.shopping_agent import ShoppingAgent
 from agents.trend_agent import FashionTrendAgent
 from agents.occasion_agent import OccasionAgent
-
+#st.markdown("""<style> ... </style>""", unsafe_allow_html=True)
 # Set page config
 st.set_page_config(
     page_title="StyleSphere AI - Premium Smart Wardrobe",
