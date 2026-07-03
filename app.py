@@ -22,7 +22,7 @@ from agents.preference_agent import PersonalPreferenceAgent
 from agents.shopping_agent import ShoppingAgent
 from agents.trend_agent import FashionTrendAgent
 from agents.occasion_agent import OccasionAgent
-#st.markdown("""<style> ... </style>""", unsafe_allow_html=True)
+
 # Set page config
 st.set_page_config(
     page_title="StyleSphere AI - Premium Smart Wardrobe",
@@ -788,7 +788,7 @@ elif page_choice == "📊 Wardrobe Analytics":
         with col_c1:
             st.subheader("📁 Categories Distribution")
             fig1 = px.pie(df, names="category", title="Items per Category", color_discrete_sequence=px.colors.qualitative.Pastel)
-            st.plotly_chart(fig1, use_container_width="stretch")
+            st.plotly_chart(fig1, use_container_width=True)
         with col_c2:
             st.subheader("💵 Cost-Per-Wear (CPW) Analysis")
             st.write("An item's value is determined by how often you wear it relative to its price.")
@@ -1001,16 +1001,32 @@ elif page_choice == "🛍️ Shopping Advisor":
 elif page_choice == "⚙️ Settings":
     st.markdown("<h1 class='gradient-text'>Settings & Preferences</h1>", unsafe_allow_html=True)
     
-    st.subheader("API Keys Configuration")
-    user_groq_input = st.text_input("Groq API Key", type="password", value=os.environ.get("GROQ_API_KEY", ""), help="Enter your Groq API Key")
-    user_gemini_input = st.text_input("Gemini API Key", type="password", value=os.environ.get("GEMINI_API_KEY", ""), help="Enter your Gemini API Key")
-    if st.button("Save Keys", key="save_keys_settings"):
-        if user_groq_input:
-            os.environ["GROQ_API_KEY"] = user_groq_input.strip()
-        if user_gemini_input:
-            os.environ["GEMINI_API_KEY"] = user_gemini_input.strip()
-        st.success("API Keys updated successfully!")
-        
+st.subheader("API Keys Configuration")
+
+# Groq Input ke liye unique key lagayein
+user_groq_input = st.text_input(
+    "Groq API Key", 
+    type="password", 
+    value=os.environ.get("GROQ_API_KEY", ""), 
+    help="Enter your Groq API Key",
+    key="settings_groq_api_key"  # <-- Yeh unique key lagayein
+)
+
+# Gemini Input ke liye unique key lagayein
+user_gemini_input = st.text_input(
+    "Gemini API Key", 
+    type="password", 
+    value=os.environ.get("GEMINI_API_KEY", ""), 
+    help="Enter your Gemini API Key",
+    key="settings_gemini_api_key"  # <-- Yeh unique key lagayein
+)
+
+if st.button("Save Keys", key="save_keys_settings"):
+    if user_groq_input:
+        os.environ["GROQ_API_KEY"] = user_groq_input.strip()
+    if user_gemini_input:
+        os.environ["GEMINI_API_KEY"] = user_gemini_input.strip()
+    st.success("API keys updated successfully!")
     st.markdown("---")
     st.subheader("User Style Profiles")
 
