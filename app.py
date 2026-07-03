@@ -800,7 +800,7 @@ elif page_choice == "📊 Wardrobe Analytics":
                          labels={"cpw": "Cost-Per-Wear ($)", "notes": "Clothing Item"},
                          title="Cost-Per-Wear (Hover to see details)",
                          color_continuous_scale="Viridis")
-            st.plotly_chart(fig2, use_container_width="stretch")
+            st.plotly_chart(fig2, use_container_width=True)
             
         st.subheader("📋 Cost-Per-Wear Metrics Data")
         st.dataframe(df_cpw[["notes", "category", "price", "wear_count", "cpw"]])
