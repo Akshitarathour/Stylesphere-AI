@@ -1028,61 +1028,61 @@ if st.button("Save Keys", key="save_keys_settings"):
         os.environ["GEMINI_API_KEY"] = user_gemini_input.strip()
     st.success("API keys updated successfully!")
     st.markdown("---")
-    st.subheader("User Style Profiles")
+st.subheader("User Style Profiles")
 
-    pref_agent = agents["preference"]
-    profile = pref_agent.load_preference_profile()
+pref_agent = agents["preference"]
+profile = pref_agent.load_preference_profile()
 
-    fav_colors = st.text_input(
-        "Favorite Colors (comma separated)",
-        ", ".join(profile.get("favorite_colors", []))
-    )
+fav_colors = st.text_input(
+    "Favorite Colors (comma separated)",
+    ", ".join(profile.get("favorite_colors", []))
+)
 
-    pref_occ = st.text_input(
-        "Preferred Occasions (comma separated)",
-        ", ".join(profile.get("preferred_occasions", []))
-    )
+pref_occ = st.text_input(
+    "Preferred Occasions (comma separated)",
+    ", ".join(profile.get("preferred_occasions", []))
+)
 
-    style_options = [
-        "Casual",
-        "Classic",
-        "Minimalist",
-        "Bold",
-        "Bohemian",
-        "Alternative"
+style_options = [
+    "Casual",
+    "Classic",
+    "Minimalist",
+    "Bold",
+    "Bohemian",
+    "Alternative"
+]
+
+saved_style = profile.get("style_vibe", "Casual")
+
+if saved_style not in style_options:
+    saved_style = "Casual"
+
+style_vibe = st.selectbox(
+    "Style Vibe",
+    style_options,
+    index=style_options.index(saved_style)
+)
+
+if st.button("Save Style Preferences"):
+    profile["favorite_colors"] = [
+        c.strip() for c in fav_colors.split(",") if c.strip()
     ]
+    profile["preferred_occasions"] = [
+        o.strip() for o in pref_occ.split(",") if o.strip()
+    ]
+    profile["style_vibe"] = style_vibe
 
-    saved_style = profile.get("style_vibe", "Casual")
+    pref_agent.save_preference_profile(profile)
+    st.success("Style preference profile saved successfully!")
 
-    if saved_style not in style_options:
-        saved_style = "Casual"
+st.markdown("---")
+st.subheader("AI Preferences Learning")
+st.write(
+    "Let the preference agent analyze your wardrobe and logs history to refine preferences automatically."
+)
 
-    style_vibe = st.selectbox(
-        "Style Vibe",
-        style_options,
-        index=style_options.index(saved_style)
-    )
+if st.button("Run Implicit Profile Learning"):
+    with st.spinner("Analyzing history..."):
+        learn_msg = pref_agent.learn_preferences_from_history(api_key=user_key)
 
-    if st.button("Save Style Preferences"):
-        profile["favorite_colors"] = [
-            c.strip() for c in fav_colors.split(",") if c.strip()
-        ]
-        profile["preferred_occasions"] = [
-            o.strip() for o in pref_occ.split(",") if o.strip()
-        ]
-        profile["style_vibe"] = style_vibe
-
-        pref_agent.save_preference_profile(profile)
-        st.success("Style preference profile saved successfully!")
-
-    st.markdown("---")
-    st.subheader("AI Preferences Learning")
-    st.write(
-        "Let the preference agent analyze your wardrobe and logs history to refine preferences automatically."
-    )
-
-    if st.button("Run Implicit Profile Learning"):
-        with st.spinner("Analyzing history..."):
-            learn_msg = pref_agent.learn_preferences_from_history(api_key=user_key)
-
-        st.info(learn_msg)
+    st.info(learn_msg)
