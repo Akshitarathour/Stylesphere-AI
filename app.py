@@ -1001,32 +1001,32 @@ elif page_choice == "🛍️ Shopping Advisor":
 elif page_choice == "⚙️ Settings":
     st.markdown("<h1 class='gradient-text'>Settings & Preferences</h1>", unsafe_allow_html=True)
     
-st.subheader("API Keys Configuration")
+    st.subheader("API Keys Configuration")
+    
+    # Groq Input ke liye unique key lagayein
+    user_groq_input = st.text_input(
+        "Groq API Key", 
+        type="password", 
+        value=os.environ.get("GROQ_API_KEY", ""), 
+        help="Enter your Groq API Key",
+        key="settings_groq_api_key"  # <-- Yeh unique key lagayein
+    )
+    
+    # Gemini Input ke liye unique key lagayein
+    user_gemini_input = st.text_input(
+        "Gemini API Key", 
+        type="password", 
+        value=os.environ.get("GEMINI_API_KEY", ""), 
+        help="Enter your Gemini API Key",
+        key="settings_gemini_api_key"  # <-- Yeh unique key lagayein
+    )
 
-# Groq Input ke liye unique key lagayein
-user_groq_input = st.text_input(
-    "Groq API Key", 
-    type="password", 
-    value=os.environ.get("GROQ_API_KEY", ""), 
-    help="Enter your Groq API Key",
-    key="settings_groq_api_key"  # <-- Yeh unique key lagayein
-)
-
-# Gemini Input ke liye unique key lagayein
-user_gemini_input = st.text_input(
-    "Gemini API Key", 
-    type="password", 
-    value=os.environ.get("GEMINI_API_KEY", ""), 
-    help="Enter your Gemini API Key",
-    key="settings_gemini_api_key"  # <-- Yeh unique key lagayein
-)
-
-if st.button("Save Keys", key="save_keys_settings"):
-    if user_groq_input:
-        os.environ["GROQ_API_KEY"] = user_groq_input.strip()
-    if user_gemini_input:
-        os.environ["GEMINI_API_KEY"] = user_gemini_input.strip()
-    st.success("API keys updated successfully!")
+    if st.button("Save Keys", key="save_keys_settings"):
+        if user_groq_input:
+            os.environ["GROQ_API_KEY"] = user_groq_input.strip()
+        if user_gemini_input:
+            os.environ["GEMINI_API_KEY"] = user_gemini_input.strip()
+        st.success("API keys updated successfully!")
     st.markdown("---")
 st.subheader("User Style Profiles")
 
