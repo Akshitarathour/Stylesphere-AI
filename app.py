@@ -187,12 +187,12 @@ with st.sidebar.expander("⚙️ Connection Settings", expanded=True):
     groq_input = st.text_input(
         "Groq API Key", 
         type="password", 
-        value= " "
+        value= ""
     )
     gemini_input = st.text_input(
         "Gemini API Key", 
         type="password", 
-        value = " "
+        value = ""
     )
 
     if groq_input:
