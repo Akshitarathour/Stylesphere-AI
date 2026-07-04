@@ -1005,7 +1005,7 @@ elif page_choice == "⚙️ Settings":
     user_groq_input = st.text_input(
         "Groq API Key", 
         type="password", 
-        value=os.environ.get("GROQ_API_KEY", ""), 
+        value = "" , 
         help="Enter your Groq API Key",
         key="settings_groq_api_key"  # <-- Yeh unique key lagayein
     )
@@ -1014,7 +1014,7 @@ elif page_choice == "⚙️ Settings":
     user_gemini_input = st.text_input(
         "Gemini API Key", 
         type="password", 
-        value=os.environ.get("GEMINI_API_KEY", ""), 
+        value = "", 
         help="Enter your Gemini API Key",
         key="settings_gemini_api_key"  # <-- Yeh unique key lagayein
     )
