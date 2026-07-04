@@ -51,3 +51,5 @@ set GROQ_API_KEY=your_groq_api_key
 
 - **Google Gemini** – Used for garment image recognition and metadata extraction (category, color, fabric, pattern, sleeve type, etc.).
 - **Groq LLM** – Powers the multi-agent system, including outfit recommendations, weather styling, shopping advisor, sustainability reports, travel packing, fashion trends, and personalized styling assistance.
+- ## note
+- For security and privacy reasons, the application is provided without preloaded wardrobe data. Judges can upload their own clothing images to explore the complete AI-powered experience.
